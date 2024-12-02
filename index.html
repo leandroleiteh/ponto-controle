@@ -10,81 +10,135 @@
 </head>
 <body>
 <div class="container mt-5">
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary mb-4" onclick="logout()">Logout</button>
+    </div>
     <h1 class="text-center mb-4 animate__animated animate__fadeInDown">Controle de Ponto</h1>
-    <form id="timeForm" class="mb-4">
+
+    <!-- Formulário de Login -->
+    <div id="loginForm" class="mb-4">
+        <h2>Login</h2>
         <div class="form-group">
-            <label for="startTime">Hora de Entrada:</label>
-            <input type="time" id="startTime" class="form-control" required>
+            <label for="loginUsername">Usuário:</label>
+            <input type="text" id="loginUsername" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="lunchStart">Início do Almoço:</label>
-            <input type="time" id="lunchStart" class="form-control" required>
+            <label for="loginPassword">Senha:</label>
+            <input type="password" id="loginPassword" class="form-control" required>
         </div>
-        <div class="form-group">
-            <label for="lunchEnd">Fim do Almoço:</label>
-            <input type="time" id="lunchEnd" class="form-control" required>
-        </div>
-        <button type="button" class="btn btn-primary animate__animated animate__pulse animate__infinite" onclick="calculateExitTime(this)">Calcular Hora de Saída</button>
-    </form>
-    <div id="results" class="mb-4">
-        <div class="card mb-2 animate__animated animate__fadeIn">
-            <div class="card-body">
-                <p id="exitTime" class="card-text"></p>
-            </div>
-        </div>
+        <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+        <p>Não tem uma conta? <a href="#" onclick="showRegisterForm()">Cadastre-se</a></p>
+        <p>Esqueceu a senha? <a href="#" onclick="showResetPasswordForm()">Redefinir senha</a></p>
     </div>
-    <form id="exitForm" class="mb-4" style="display: none;">
+
+    <!-- Formulário de Cadastro -->
+    <div id="registerForm" class="mb-4" style="display: none;">
+        <h2>Cadastro</h2>
         <div class="form-group">
-            <label for="endTime">Hora de Saída:</label>
-            <input type="time" id="endTime" class="form-control" required>
+            <label for="registerUsername">Usuário:</label>
+            <input type="text" id="registerUsername" class="form-control" required>
         </div>
-        <button type="button" class="btn btn-primary animate__animated animate__pulse animate__infinite" onclick="calculateWorkedHours(this)">Calcular Horas Trabalhadas</button>
-    </form>
-    <div id="workedResults" class="mb-4" style="display: none;">
-        <div class="card mb-2 animate__animated animate__fadeIn">
-            <div class="card-body">
-                <p id="workedHours" class="card-text"></p>
-            </div>
+        <div class="form-group">
+            <label for="registerPassword">Senha:</label>
+            <input type="password" id="registerPassword" class="form-control" required>
         </div>
-        <div class="card mb-2 animate__animated animate__fadeIn">
-            <div class="card-body">
-                <p id="extraHours" class="card-text"></p>
-            </div>
-        </div>
-        <div class="card mb-2 animate__animated animate__fadeIn">
-            <div class="card-body">
-                <p id="missingHours" class="card-text"></p>
-            </div>
-        </div>
+        <button type="button" class="btn btn-primary" onclick="register()">Cadastrar</button>
+        <p>Já tem uma conta? <a href="#" onclick="showLoginForm()">Faça login</a></p>
     </div>
-    <button class="btn btn-danger mb-4 animate__animated animate__shakeX" onclick="resetData()">Zerar Dados</button>
-    <h2 class="text-center mb-4 animate__animated animate__fadeInUp">Histórico de Pontos</h2>
-    <div class="filters mb-4">
+
+    <!-- Formulário de Redefinição de Senha -->
+    <div id="resetPasswordForm" class="mb-4" style="display: none;">
+        <h2>Redefinir Senha</h2>
         <div class="form-group">
-            <label for="monthFilter">Filtrar por Mês:</label>
-            <input type="month" id="monthFilter" class="form-control" onchange="filterHistory()">
+            <label for="resetUsername">Usuário:</label>
+            <input type="text" id="resetUsername" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="yearFilter">Filtrar por Ano:</label>
-            <input type="number" id="yearFilter" class="form-control" min="2000" max="2100" onchange="filterHistory()">
+            <label for="newPassword">Nova Senha:</label>
+            <input type="password" id="newPassword" class="form-control" required>
         </div>
-        <button class="btn btn-warning ml-2 animate__animated animate__shakeX" onclick="clearHistory()">Limpar Histórico</button>
+        <button type="button" class="btn btn-primary" onclick="resetPassword()">Redefinir Senha</button>
+        <p>Já tem uma conta? <a href="#" onclick="showLoginForm()">Faça login</a></p>
     </div>
-    <table class="table table-striped animate__animated animate__fadeIn">
-        <thead>
-        <tr>
-            <th>Data</th>
-            <th>Entrada</th>
-            <th>Início Almoço</th>
-            <th>Fim Almoço</th>
-            <th>Saída</th>
-            <th>Horas Trabalhadas</th>
-            <th>Horas Extras</th>
-            <th>Horas Faltantes</th>
-        </tr>
-        </thead>
-        <tbody id="history"></tbody>
-    </table>
+
+    <!-- Formulário de Controle de Ponto -->
+    <div id="timeControlForm" style="display: none;">
+        <form id="timeForm" class="mb-4">
+            <div class="form-group">
+                <label for="startTime">Hora de Entrada:</label>
+                <input type="time" id="startTime" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="lunchStart">Início do Almoço:</label>
+                <input type="time" id="lunchStart" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="lunchEnd">Fim do Almoço:</label>
+                <input type="time" id="lunchEnd" class="form-control" required>
+            </div>
+            <button type="button" class="btn btn-primary animate__animated animate__pulse animate__infinite" onclick="calculateExitTime(this)">Calcular Hora de Saída</button>
+        </form>
+        <div id="results" class="mb-4">
+            <div class="card mb-2 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <p id="exitTime" class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        <form id="exitForm" class="mb-4" style="display: none;">
+            <div class="form-group">
+                <label for="endTime">Hora de Saída:</label>
+                <input type="time" id="endTime" class="form-control" required>
+            </div>
+            <button type="button" class="btn btn-primary animate__animated animate__pulse animate__infinite" onclick="calculateWorkedHours(this)">Calcular Horas Trabalhadas</button>
+        </form>
+        <div id="workedResults" class="mb-4" style="display: none;">
+            <div class="card mb-2 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <p id="workedHours" class="card-text"></p>
+                </div>
+            </div>
+            <div class="card mb-2 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <p id="extraHours" class="card-text"></p>
+                </div>
+            </div>
+            <div class="card mb-2 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <p id="missingHours" class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-danger mb-4 animate__animated animate__shakeX" onclick="resetData()">Zerar Dados</button>
+        <h2 class="text-center mb-4 animate__animated animate__fadeInUp">Histórico de Pontos</h2>
+        <div class="filters mb-4">
+            <div class="form-group">
+                <label for="monthFilter">Filtrar por Mês:</label>
+                <input type="month" id="monthFilter" class="form-control" onchange="filterHistory()">
+            </div>
+            <div class="form-group">
+                <label for="yearFilter">Filtrar por Ano:</label>
+                <input type="number" id="yearFilter" class="form-control" min="2000" max="2100" onchange="filterHistory()">
+            </div>
+            <button class="btn btn-warning ml-2 animate__animated animate__shakeX" onclick="clearHistory()">Limpar Histórico</button>
+        </div>
+        <table class="table table-striped animate__animated animate__fadeIn">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Entrada</th>
+                <th>Início Almoço</th>
+                <th>Fim Almoço</th>
+                <th>Saída</th>
+                <th>Horas Trabalhadas</th>
+                <th>Horas Extras</th>
+                <th>Horas Faltantes</th>
+            </tr>
+            </thead>
+            <tbody id="history"></tbody>
+        </table>
+    </div>
+
     <footer class="text-center mt-4">
         <p>Desenvolvido por Leandro Leite</p>
     </footer>

@@ -65,3 +65,13 @@ footer {
     margin-top: 20px;
     color: #555;
 }
+
+#loginForm, #registerForm {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: flex-end;
+}
