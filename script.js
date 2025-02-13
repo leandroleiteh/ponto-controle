@@ -81,16 +81,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 // }
 
 function showTimeControlForm() {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('resetPasswordForm').style.display = 'none';
-    document.getElementById('timeControlForm').style.display = 'block';
+    // document.getElementById('loginForm').style.display = 'none';
+    // document.getElementById('registerForm').style.display = 'none';
+    // document.getElementById('resetPasswordForm').style.display = 'none';
+    // document.getElementById('timeControlForm').style.display = 'block';
     loadUserData();
 }
 
 function loadUserData() {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         const userData = users[currentUser]?.data || {};
 
@@ -98,21 +98,21 @@ function loadUserData() {
         document.getElementById('lunchStart').value = userData.lunchStart || '';
         document.getElementById('lunchEnd').value = userData.lunchEnd || '';
         document.getElementById('endTime').value = userData.endTime || '';
-    }
+    // }
 }
 
 function saveData(startTime, lunchStart, lunchEnd) {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         users[currentUser].data = { startTime, lunchStart, lunchEnd };
         localStorage.setItem('users', JSON.stringify(users));
-    }
+    // }
 }
 
 function addToHistory(startTime, lunchStart, lunchEnd, endTime, workedHours, extraHours, missingHours) {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         const history = users[currentUser].history || [];
         const today = new Date().toLocaleDateString('pt-BR');
@@ -129,12 +129,12 @@ function addToHistory(startTime, lunchStart, lunchEnd, endTime, workedHours, ext
         users[currentUser].history = history;
         localStorage.setItem('users', JSON.stringify(users));
         loadHistory();
-    }
+    // }
 }
 
 function loadHistory() {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         const history = users[currentUser].history || [];
         const historyTable = document.getElementById('history');
@@ -153,14 +153,14 @@ function loadHistory() {
             `;
             historyTable.appendChild(row);
         });
-    }
+    // }
 }
 
 function filterHistory() {
     const monthFilter = document.getElementById('monthFilter').value;
     const yearFilter = document.getElementById('yearFilter').value;
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         const history = users[currentUser].history || [];
         const filteredHistory = history.filter(entry => {
@@ -186,17 +186,17 @@ function filterHistory() {
             `;
             historyTable.appendChild(row);
         });
-    }
+    // }
 }
 
 function clearHistory() {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         users[currentUser].history = [];
         localStorage.setItem('users', JSON.stringify(users));
         loadHistory();
-    }
+    // }
 }
 
 function calculateExitTime(button) {
@@ -270,28 +270,28 @@ function formatHours(hours) {
 
 function saveData(startTime, lunchStart, lunchEnd) {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         users[currentUser].data = { startTime, lunchStart, lunchEnd };
         localStorage.setItem('users', JSON.stringify(users));
-    }
+    // }
 }
 
 function loadSavedData() {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         const userData = users[currentUser]?.data || {};
 
         if (userData.startTime) document.getElementById('startTime').value = userData.startTime;
         if (userData.lunchStart) document.getElementById('lunchStart').value = userData.lunchStart;
         if (userData.lunchEnd) document.getElementById('lunchEnd').value = userData.lunchEnd;
-    }
+    // }
 }
 
 function resetData() {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         users[currentUser].data = {};
         localStorage.setItem('users', JSON.stringify(users));
@@ -299,12 +299,12 @@ function resetData() {
         document.getElementById('results').innerHTML = '';
         document.getElementById('exitForm').style.display = 'none';
         document.getElementById('workedResults').style.display = 'none';
-    }
+    // }
 }
 
 function setAlarms() {
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
+    // if (currentUser) {
         const users = JSON.parse(localStorage.getItem('users')) || {};
         const userData = users[currentUser].data || {};
         const endTime = document.getElementById('exitTime').textContent.split(': ')[1];
@@ -313,7 +313,7 @@ function setAlarms() {
         if (userData.lunchStart) setAlarm(userData.lunchStart, 'Início do Almoço');
         if (userData.lunchEnd) setAlarm(userData.lunchEnd, 'Fim do Almoço');
         if (endTime) setAlarm(endTime, 'Hora de Saída');
-    }
+    // }
 }
 
 function setAlarm(time, label) {
