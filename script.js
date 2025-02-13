@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    checkLogin();
+    // checkLogin();
     if (localStorage.getItem('currentUser')) {
         loadSavedData();
         loadHistory();
@@ -7,24 +7,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-function register() {
-    const username = document.getElementById('registerUsername').value;
-    const password = document.getElementById('registerPassword').value;
+// function register() {
+//     const username = document.getElementById('registerUsername').value;
+//     const password = document.getElementById('registerPassword').value;
 
-    if (username && password) {
-        const users = JSON.parse(localStorage.getItem('users')) || {};
-        if (users[username]) {
-            alert('Usuário já existe.');
-        } else {
-            users[username] = { password, data: {}, history: [] };
-            localStorage.setItem('users', JSON.stringify(users));
-            alert('Cadastro realizado com sucesso!');
-            // showLoginForm();
-        }
-    } else {
-        alert('Por favor, preencha todos os campos.');
-    }
-}
+//     if (username && password) {
+//         const users = JSON.parse(localStorage.getItem('users')) || {};
+//         if (users[username]) {
+//             alert('Usuário já existe.');
+//         } else {
+//             users[username] = { password, data: {}, history: [] };
+//             localStorage.setItem('users', JSON.stringify(users));
+//             alert('Cadastro realizado com sucesso!');
+//             // showLoginForm();
+//         }
+//     } else {
+//         alert('Por favor, preencha todos os campos.');
+//     }
+// }
 
 // function login() {
 //     const username = document.getElementById('loginUsername').value;
