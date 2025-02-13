@@ -19,66 +19,66 @@ function register() {
             users[username] = { password, data: {}, history: [] };
             localStorage.setItem('users', JSON.stringify(users));
             alert('Cadastro realizado com sucesso!');
-            showLoginForm();
+            // showLoginForm();
         }
     } else {
         alert('Por favor, preencha todos os campos.');
     }
 }
 
-function login() {
-    const username = document.getElementById('loginUsername').value;
-    const password = document.getElementById('loginPassword').value;
+// function login() {
+//     const username = document.getElementById('loginUsername').value;
+//     const password = document.getElementById('loginPassword').value;
 
-    const users = JSON.parse(localStorage.getItem('users')) || {};
-    if (users[username] && users[username].password === password) {
-        localStorage.setItem('currentUser', username);
-        localStorage.setItem('loginTime', Date.now());
-        alert('Login realizado com sucesso!');
-        showTimeControlForm();
-    } else {
-        alert('Usuário ou senha incorretos.');
-    }
-}
+//     const users = JSON.parse(localStorage.getItem('users')) || {};
+//     if (users[username] && users[username].password === password) {
+//         localStorage.setItem('currentUser', username);
+//         localStorage.setItem('loginTime', Date.now());
+//         alert('Login realizado com sucesso!');
+//         showTimeControlForm();
+//     } else {
+//         alert('Usuário ou senha incorretos.');
+//     }
+// }
 
-function logout() {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('loginTime');
-    alert('Você foi desconectado.');
-    showLoginForm();
-}
+// function logout() {
+//     localStorage.removeItem('currentUser');
+//     localStorage.removeItem('loginTime');
+//     alert('Você foi desconectado.');
+//     showLoginForm();
+// }
 
-function checkLogin() {
-    const loginTime = localStorage.getItem('loginTime');
-    if (loginTime && Date.now() - loginTime > 3600000) { // 1 hora em milissegundos
-        logout();
-    } else if (localStorage.getItem('currentUser')) {
-        showTimeControlForm();
-    } else {
-        showLoginForm();
-    }
-}
+// function checkLogin() {
+//     const loginTime = localStorage.getItem('loginTime');
+//     if (loginTime && Date.now() - loginTime > 3600000) { // 1 hora em milissegundos
+//         logout();
+//     } else if (localStorage.getItem('currentUser')) {
+//         showTimeControlForm();
+//     } else {
+//         showLoginForm();
+//     }
+// }
 
-function showLoginForm() {
-    document.getElementById('loginForm').style.display = 'block';
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('resetPasswordForm').style.display = 'none';
-    document.getElementById('timeControlForm').style.display = 'none';
-}
+// function showLoginForm() {
+//     document.getElementById('loginForm').style.display = 'block';
+//     document.getElementById('registerForm').style.display = 'none';
+//     document.getElementById('resetPasswordForm').style.display = 'none';
+//     document.getElementById('timeControlForm').style.display = 'none';
+// }
 
-function showRegisterForm() {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('registerForm').style.display = 'block';
-    document.getElementById('resetPasswordForm').style.display = 'none';
-    document.getElementById('timeControlForm').style.display = 'none';
-}
+// function showRegisterForm() {
+//     document.getElementById('loginForm').style.display = 'none';
+//     document.getElementById('registerForm').style.display = 'block';
+//     document.getElementById('resetPasswordForm').style.display = 'none';
+//     document.getElementById('timeControlForm').style.display = 'none';
+// }
 
-function showResetPasswordForm() {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('resetPasswordForm').style.display = 'block';
-    document.getElementById('timeControlForm').style.display = 'none';
-}
+// function showResetPasswordForm() {
+//     document.getElementById('loginForm').style.display = 'none';
+//     document.getElementById('registerForm').style.display = 'none';
+//     document.getElementById('resetPasswordForm').style.display = 'block';
+//     document.getElementById('timeControlForm').style.display = 'none';
+// }
 
 function showTimeControlForm() {
     document.getElementById('loginForm').style.display = 'none';
