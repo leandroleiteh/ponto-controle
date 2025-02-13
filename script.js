@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     // checkLogin();
-    if (localStorage.getItem('currentUser')) {
+    // if (localStorage.getItem('currentUser')) {
         loadSavedData();
         loadHistory();
         setAlarms();
-    }
+    // }
 });
 
 // function register() {
