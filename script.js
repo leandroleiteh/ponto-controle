@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    checkLogin();
+    // checkLogin();
     if (localStorage.getItem('currentUser')) {
         loadSavedData();
         loadHistory();
